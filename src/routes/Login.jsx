@@ -34,11 +34,10 @@ export default function Login() {
     fetch(APIHost + '/api/token/', params)
       .then(results => results.json())
       .then(data => {
-        const token = data.access;
-        setAccessToken(token);
-        localStorage.setItem('user', accessToken)
         setIsLoading(false)
-        this.props.history.push('/my-drive')
+        const token = data.access;
+        localStorage.setItem('user', token)
+        setAccessToken(token);
       });
   };
     return (
@@ -74,7 +73,6 @@ export default function Login() {
             <></>
           )}
         </div>
-        <p>{localStorage.getItem("user")}</p>
       </main>
       </>
       
