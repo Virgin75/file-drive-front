@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {APIHostContext} from '../APIHostContext';
 
-export default function Expenses() {
+export default function Login() {
   const APIHost = React.useContext(APIHostContext)
   const [accessToken, setAccessToken] = React.useState(null);
 
@@ -24,6 +24,7 @@ export default function Expenses() {
       .then(data => {
         const token = data.access;
         setAccessToken(token);
+        localStorage.setItem('user', accessToken)
       });
   }, []);
 
