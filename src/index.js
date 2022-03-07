@@ -7,6 +7,7 @@ import {
 import App from "./App";
 import Login from "./routes/Login";
 import SignUp from "./routes/SignUp";
+import MyDrive from "./routes/MyDrive";
 import { APIHostContext, host } from "./APIHostContext";
 
 const rootElement = document.getElementById("root");
@@ -18,6 +19,7 @@ render(
         <Route path="/" element={<App />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="my-drive" element={<MyDrive />} />
       </Routes>
     </BrowserRouter>
   </APIHostContext.Provider>,

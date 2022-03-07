@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const APIHost = React.useContext(APIHostContext)
@@ -9,11 +9,15 @@ export default function Login() {
   const [isLoading, setIsLoading] = React.useState(false)
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const navigate = useNavigate();
+
 
 
   React.useEffect(() => {
-    // DO NOTHING
-  }, []);
+    if (accessToken != null) {
+      navigate("/my-drive", { replace: true });
+    }
+  }, [accessToken]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -42,11 +46,7 @@ export default function Login() {
   };
     return (
       <>
-      {accessToken != null ? (
-            <Navigate to='/my-drive'  />
-          ) : (
-            <span>You are not logged in.</span>
-          )}
+
       <main style={{ padding: "1rem 0" }}>
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
