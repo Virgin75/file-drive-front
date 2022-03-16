@@ -10,6 +10,31 @@ body {
 .header {
   border-bottom: 1px solid rgba(128, 128, 128, 0.281);
   padding: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.btnHeader {
+  margin-left: auto;
+  margin-right: 10px;;
+}
+
+.twoSections {
+  display: flex;
+}
+
+.left {
+  flex: 2;
+}
+
+.leftBar {
+  border-right: 1px solid rgba(128, 128, 128, 0.281);
+  height: 100vh;
+  margin-right: 2em;
+}
+
+.right {
+  flex: 7;
 }
 
 code {
