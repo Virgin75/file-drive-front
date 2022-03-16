@@ -9,12 +9,10 @@ import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-
-import Button from '@mui/material/Button';
-
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import "../index.css"
 
-export default function LeftBar() {
+export default function File() {
 
   const APIHost = React.useContext(APIHostContext)
 
@@ -23,37 +21,18 @@ export default function LeftBar() {
 
     return (
       <>
-      
-      <div className='leftBar'>
-      <MenuList>
-        <MenuItem>
-        <Button  className='btnHeader' startIcon={<FileUploadOutlinedIcon />}>
-          Upload a new file
-        </Button>  
-        </MenuItem>
-            
-        <Divider />
+      <MenuList>     
         <MenuItem>
           <ListItemIcon>
             <CloudOutlinedIcon fontSize="medium" />
           </ListItemIcon>
           <ListItemText>My Drive</ListItemText>
+          <span>dhh</span><span>dhh</span><span>dhh</span>
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <FolderSharedOutlinedIcon fontSize="medium" />
-          </ListItemIcon>
-          <ListItemText>Shared with me</ListItemText>
-        </MenuItem>
+       
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <InfoOutlinedIcon fontSize="medium" />
-          </ListItemIcon>
-          <ListItemText>Help</ListItemText>
-        </MenuItem>
+ 
       </MenuList>
-      </div>
       </>
       
     );

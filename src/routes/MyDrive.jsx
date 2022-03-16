@@ -3,7 +3,10 @@ import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import LeftBar from '../components/LeftBar'
+import LeftBar from '../components/LeftBar';
+import File from '../components/File';
+
+
 
 export default function MyDrive() {
   const APIHost = React.useContext(APIHostContext)
@@ -77,8 +80,10 @@ export default function MyDrive() {
       </div>
       <div className="right">
         <h1>My Drive</h1>
+        <File />
         <DisplayFolders />
         <DisplayFiles />
+       
         <div>
             {isLoading ? (
               <Rings color="#00BFFF" height={150} width={150} />
