@@ -46,34 +46,37 @@ export default function Login() {
   };
     return (
       <>
-
-      <main style={{ padding: "1rem 0" }}>
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <label>Email : </label>
-          <input 
-            type='text' 
-            value={email}
-            placeholder="Enter your email..."
-            onChange={({target}) => setEmail(target.value)}
-          /><br></br>
-          <label>Password : </label>
-          <input 
-            type='password' 
-            value={password}
-            placeholder="Enter your password"
-            onChange={({target}) => setPassword(target.value)}
-          />
-          <button type="submit">Sign in</button>
-        </form>
-        <div>
-          {isLoading ? (
-            <Rings color="#00BFFF" height={150} width={150} />
-          ) : (
-            <></>
-          )}
-        </div>
-      </main>
+      <div className='loginContainer'>
+        <h1 class="welcome">Welcome to AppName 👋</h1>
+        <main className="login">
+          <h2>Please login below or <a href="/signup">create an account.</a></h2>
+          <form onSubmit={handleSubmit}>
+            <label>Email : </label>
+            <input 
+              type='text' 
+              value={email}
+              placeholder="Enter your email..."
+              onChange={({target}) => setEmail(target.value)}
+            /><br></br>
+            <label>Password : </label>
+            <input 
+              type='password' 
+              value={password}
+              placeholder="Enter your password"
+              onChange={({target}) => setPassword(target.value)}
+            />
+            <button type="submit">Sign in</button>
+          </form>
+          <div>
+            {isLoading ? (
+              <Rings color="#00BFFF" height={150} width={150} />
+            ) : (
+              <></>
+            )}
+          </div>
+        </main>
+      </div>
+      
       </>
       
     );

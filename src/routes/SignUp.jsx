@@ -59,8 +59,10 @@ export default function SignUp() {
           ) : isSignupSuccessful == 'no' ? (
             <span>There is a mistake in one of the submitted fields.</span>
           ) : <></>}
-      <main style={{ padding: "1rem 0" }}>
-        <h2>Sign up</h2>
+      <div className='loginContainer'>
+        <h1 class="welcome">Welcome to AppName 👋</h1>
+        <main className="login">
+        <h2>Sign up below or <a href="/login">login on this page.</a></h2>
         <form onSubmit={handleSubmit}>
           <label>Email : </label>
           <input 
@@ -100,6 +102,7 @@ export default function SignUp() {
           )}
         </div>
       </main>
+      </div>
       </>
       
     );
