@@ -4,7 +4,6 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import App from "./App";
 import Login from "./routes/Login";
 import SignUp from "./routes/SignUp";
 import MyDrive from "./routes/MyDrive";
@@ -16,7 +15,7 @@ render(
   <APIHostContext.Provider value={host}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Login />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="my-drive" element={<MyDrive />} />
