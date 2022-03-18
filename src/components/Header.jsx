@@ -3,6 +3,8 @@ import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import IconButton from '@mui/material/IconButton';
+
 import "../index.css"
 
 export default function Header() {
@@ -21,12 +23,17 @@ export default function Header() {
       />
       <div className='header'>
             <span>LogoName</span>
-            <a href="" className='btnHeader'>
-                <AccountCircleIcon color="primary" fontSize="large" />
-            </a>
-            <a href="">
-                <PowerSettingsNewIcon color="primary" fontSize="large" />
-            </a>
+            <IconButton href="/profile" color="primary" aria-label="ffd">
+              <AccountCircleIcon fontSize="large"/>
+            </IconButton>
+
+            <IconButton onClick={() => {
+              localStorage.setItem('user', '');
+              window.location.href = '/login/'
+            }} color="primary">
+              <PowerSettingsNewIcon fontSize="large" />
+            </IconButton>
+            
       </div>
       </>
       
