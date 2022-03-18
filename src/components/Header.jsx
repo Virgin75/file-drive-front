@@ -22,8 +22,8 @@ export default function Header() {
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
       />
       <div className='header'>
-            <span>LogoName</span>
-            <IconButton href="/profile" color="primary" aria-label="ffd">
+            <span className="mainTitle">LogoName</span>
+            <IconButton className="btnHeader" href="/profile" color="primary" aria-label="ffd">
               <AccountCircleIcon fontSize="large"/>
             </IconButton>
 

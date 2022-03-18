@@ -5,7 +5,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import LeftBar from '../components/LeftBar';
 import File from '../components/File';
-
+import Button from '@mui/material/Button';
+import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
 
 
 export default function MyDrive() {
@@ -79,7 +80,13 @@ export default function MyDrive() {
         <LeftBar />
       </div>
       <div className="right">
-        <h1>My Drive</h1>
+        <div className='topSection'>
+          <h1>My Drive</h1>
+          <Button sx={{justifySelf: 'flex-end', marginLeft: 'auto', maxHeight: '48px', minWidth: '212px'}} variant="contained" startIcon={<CreateNewFolderOutlinedIcon />}>
+            Create new folder
+          </Button>  
+        </div>
+        
         <File />
         <DisplayFolders />
         <DisplayFiles />

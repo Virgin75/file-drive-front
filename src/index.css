@@ -15,8 +15,12 @@ body {
 }
 
 .btnHeader {
-  margin-left: auto;
+  margin: auto;
   margin-right: 10px;;
+}
+
+.mainTitle {
+  margin-right: auto;
 }
 
 .twoSections {
@@ -35,6 +39,8 @@ body {
 
 .right {
   flex: 7;
+  padding-right: 2em;
+  padding-top: 1em;
 }
 
 code {
@@ -48,7 +54,7 @@ code {
   text-align: center;
   justify-content: center;
   height: 100vh;
-  background-color: azure;
+  background-color: rgba(240, 255, 255, 0.74);
   
 }
 
@@ -93,4 +99,9 @@ button[type="submit"] {
   border: none;
   border-radius: 5px;
   font-weight: 900;
+}
+
+.topSection {
+  display: flex;
+  align-items: center;
 }
