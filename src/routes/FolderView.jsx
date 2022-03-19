@@ -10,6 +10,8 @@ import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutl
 import CreateFolderModal from '../components/CreateFolderModal'
 import { useParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Chip from '@mui/material/Chip';
+import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
 
 export default function FolderView(props) {
   const APIHost = React.useContext(APIHostContext)
@@ -91,6 +93,16 @@ export default function FolderView(props) {
     }
   }
 
+  const renderRootFolderChip = () => {
+    if(folderName == 'root') {
+      return <Chip icon={<RouteOutlinedIcon fontSize="small" />} sx={{marginLeft: '18px'}} label="Root folder" />
+    } 
+    else {
+      return <></>
+
+    }
+  }
+
   const DisplayContent = () => {
     return <>
     <div className='twoSections'>
@@ -101,6 +113,7 @@ export default function FolderView(props) {
         <div className='topSection'>
         
         {renderTitle()}
+        {renderRootFolderChip()}
           <Button onClick={handleClickOpen} sx={{justifySelf: 'flex-end', marginLeft: 'auto', maxHeight: '48px', minWidth: '212px'}} variant="contained" startIcon={<CreateNewFolderOutlinedIcon />}>
             Create new folder
           </Button>

@@ -10,16 +10,36 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
 
   
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const openMore = Boolean(anchorEl);
+    const handleClickMore = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleCloseMore = () => {
+      setAnchorEl(null);
+    };
 
 
     function createData(isFolder, name, type, size, edit_date, dl_link, more, id) {
@@ -32,9 +52,74 @@ import { Navigate, useNavigate } from 'react-router-dom';
               </IconButton>
     }
     function getMore(param) {
-      return <IconButton className="btnHeader" color="secondary" aria-label="ffd">
+      // Splitter tout ça dans un new component
+      return <>
+      <IconButton  onClick={handleClickMore} className="btnHeader" color="secondary" aria-label="ffd">
                   <MoreVertOutlinedIcon fontSize="medium"/>
               </IconButton>
+              <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={openMore}
+        onClose={handleCloseMore}
+        onClick={handleCloseMore}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 3px rgba(0,0,0,0.03))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem>
+          <Avatar /> Profile
+        </MenuItem>
+        <MenuItem>
+          <Avatar /> My account
+        </MenuItem>
+        <Divider />
+        <MenuItem>
+          <ListItemIcon>
+            <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          Add another account
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+            </>
+
     }
   
     function isFolder(bool, thumbnail) {

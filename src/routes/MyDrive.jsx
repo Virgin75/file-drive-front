@@ -8,6 +8,8 @@ import FilesAndFoldersList from '../components/FilesAndFoldersList';
 import Button from '@mui/material/Button';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
 import CreateFolderModal from '../components/CreateFolderModal'
+import Chip from '@mui/material/Chip';
+import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
 
 
 export default function MyDrive() {
@@ -78,6 +80,7 @@ export default function MyDrive() {
       <div className="right">
         <div className='topSection'>
           <h1>My Drive</h1>
+          <Chip icon={<RouteOutlinedIcon fontSize="small" />} sx={{marginLeft: '18px'}} label="Root folder" />
           <Button onClick={handleClickOpen} sx={{justifySelf: 'flex-end', marginLeft: 'auto', maxHeight: '48px', minWidth: '212px'}} variant="contained" startIcon={<CreateNewFolderOutlinedIcon />}>
             Create new folder
           </Button>
