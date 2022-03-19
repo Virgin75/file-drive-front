@@ -32,6 +32,9 @@ body {
   border-right: 1px solid rgba(128, 128, 128, 0.281);
   margin-right: 2em;
   background-color: #e3edf738;
+  height: 100vh;
+  position: sticky;
+  top: 0px;
 }
 
 

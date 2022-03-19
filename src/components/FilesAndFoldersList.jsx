@@ -50,11 +50,12 @@ import { Navigate, useNavigate } from 'react-router-dom';
       navigate("/folders/" + id + '/', { replace: true });
     }
   
-    const rows = [];
+    const file_rows = [];
+    const folder_rows = [];
 
     // Create lines for folders
     for (let i = 0; i < props.folders.length; i++) {
-      rows.push(
+      folder_rows.push(
         createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore(), props.folders[i].id)
       )
     }
@@ -74,17 +75,26 @@ import { Navigate, useNavigate } from 'react-router-dom';
     })
       console.log(ndate)
 
-      rows.push(
+      file_rows.push(
         createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore(),  props.files[i].id)
       )
     }
 
-    console.log(rows)
+    const renderRows = (row) => {
+      // It's a file
+      if(row.file_name != undefined || row.file_name != '') {
+        return <></>
+      } 
+      // It's a folder
+      else {
+        return  
+      }
+    }
 
     return (
       <TableContainer component={Paper}>
         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead sx={{ backgroundColor: '#fafafa'}}>
+          <TableHead>
             <TableRow>
               <TableCell></TableCell>
               <TableCell>Name</TableCell>
@@ -96,20 +106,37 @@ import { Navigate, useNavigate } from 'react-router-dom';
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {folder_rows.map((row) => (
               
               <TableRow
                 hover={true}
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell onClick={() => handleRowClick(row.id)} sx={{ width: '25px'}} align="center">{row.isFolder}</TableCell>
-                <TableCell onClick={() => handleRowClick(row.id)} component="th" scope="row">
+                <TableCell onClick={() => handleRowClick(row.id)} sx={{ width: '25px', cursor: 'pointer'}} align="center">{row.isFolder}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} component="th" scope="row">
                   <b>{row.name}</b>
                 </TableCell>
-                <TableCell onClick={() => handleRowClick(row.id)} align="right">{row.type}</TableCell>
-                <TableCell onClick={() => handleRowClick(row.id)} align="right">{row.size}</TableCell>
-                <TableCell onClick={() => handleRowClick(row.id)} align="right">{row.edit_date}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.type}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.size}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.edit_date}</TableCell>
+                <TableCell sx={{ width: '90px'}} align="center">{row.dl_link}</TableCell>
+                <TableCell sx={{ width: '90px'}} align="center">{row.more}</TableCell>
+              </TableRow>
+            ))}
+            {file_rows.map((row) => (
+              
+              <TableRow
+                key={row.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell sx={{ width: '25px'}} align="center">{row.isFolder}</TableCell>
+                <TableCell component="th" scope="row">
+                  <b>{row.name}</b>
+                </TableCell>
+                <TableCell align="right">{row.type}</TableCell>
+                <TableCell align="right">{row.size}</TableCell>
+                <TableCell align="right">{row.edit_date}</TableCell>
                 <TableCell sx={{ width: '90px', backgroundColor: '#e3edf7'}} align="center">{row.dl_link}</TableCell>
                 <TableCell sx={{ width: '90px'}} align="center">{row.more}</TableCell>
               </TableRow>
