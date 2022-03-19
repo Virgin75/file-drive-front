@@ -7,6 +7,7 @@ export default function Login() {
   const APIHost = React.useContext(APIHostContext)
   const [accessToken, setAccessToken] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false)
+  const [isLoginSuccessful, setIsLoginSuccessful] = React.useState('')
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const navigate = useNavigate();
@@ -40,14 +41,29 @@ export default function Login() {
       .then(data => {
         setIsLoading(false)
         const token = data.access;
-        localStorage.setItem('user', token)
-        setAccessToken(token);
+
+        // A token was returned --> All good
+        if (token != undefined) {
+          localStorage.setItem('user', token)
+          setAccessToken(token);
+        }
+        // Display error message
+        else {
+          window.scrollTo(0, 0);
+          setIsLoginSuccessful('no')
+        }
+        
       });
   };
     return (
       <>
+      {isLoginSuccessful == 'no' ? (
+            <div className="errorContainer">
+              <span className='error'>❌ There is a mistake in one of the submitted fields.</span>
+            </div>
+          ) : <></>}
       <div className='loginContainer'>
-        <h1 class="welcome">Welcome to AppName 👋</h1>
+        <h1 className="welcome">Welcome to AppName 👋</h1>
         <main className="login">
           <h2>Please login below or <a href="/signup">create an account.</a></h2>
           <form onSubmit={handleSubmit}>

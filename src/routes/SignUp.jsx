@@ -47,8 +47,11 @@ export default function SignUp() {
           setIsSignupSuccessful('yes')
         }
         else {
+          //Scroll to top for error message
+          window.scrollTo(0, 0);
           setIsSignupSuccessful('no')
-        }        
+        }
+        
         
       });
   };
@@ -57,7 +60,10 @@ export default function SignUp() {
       {isSignupSuccessful == 'yes' ? (
             <Navigate to='/login'  />
           ) : isSignupSuccessful == 'no' ? (
-            <span>There is a mistake in one of the submitted fields.</span>
+            <div className="errorContainer">
+              <span className='error'>❌ There is a mistake in one of the submitted fields.</span>
+            </div>
+            
           ) : <></>}
       <div className='loginContainer'>
         <h1 class="welcome">Welcome to AppName 👋</h1>
