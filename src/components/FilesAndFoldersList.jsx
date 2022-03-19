@@ -15,36 +15,52 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 
-function createData(isFolder, name, type, size, edit_date, dl_link, more) {
-    return { isFolder, name, type, size, edit_date, dl_link, more };
-  }
   
-  function getDownloadLink(param) {
-    return <IconButton className="btnHeader" href="#" color="primary" aria-label="ffd">
-                <FileDownloadOutlinedIcon fontSize="medium"/>
-            </IconButton>
-  }
-  function getMore(param) {
-    return <IconButton className="btnHeader" color="secondary" aria-label="ffd">
-                <MoreVertOutlinedIcon fontSize="medium"/>
-            </IconButton>
-  }
+  export default function FilesAndFoldersList(props) {
+    const APIHost = React.useContext(APIHostContext)
 
-  function isFolder(param) {
-    if (param) {
-        return <FolderOutlinedIcon color="primary" fontSize="medium"/>
+    function createData(isFolder, name, type, size, edit_date, dl_link, more) {
+      return { isFolder, name, type, size, edit_date, dl_link, more };
     }
-    else {
-        return 
+    
+    function getDownloadLink(param) {
+      return <IconButton className="btnHeader" href={APIHost + param} color="primary" aria-label="ffd">
+                  <FileDownloadOutlinedIcon fontSize="medium"/>
+              </IconButton>
     }
-  }
-
-  const rows = [
-    createData(isFolder(true), 'Frozen yoghurt.png', 'image/png', '0.7 Mb', '21/11/2022', getDownloadLink(), getMore()),
-    createData(isFolder(false), 'Ice cream sandwich', 237, 9.0),
-  ];
+    function getMore(param) {
+      return <IconButton className="btnHeader" color="secondary" aria-label="ffd">
+                  <MoreVertOutlinedIcon fontSize="medium"/>
+              </IconButton>
+    }
   
-  export default function File(thumbnail, name, type, size, edit_date, dl_link) {
+    function isFolder(bool, thumbnail) {
+      if (bool) {
+          return <FolderOutlinedIcon color="primary" fontSize="large"/>
+      }
+      else {
+          return <img src={APIHost + thumbnail} width="50" height="50"/>
+      }
+    }
+  
+    const rows = [];
+
+    // Create lines for folders
+    for (let i = 0; i < props.folders.length; i++) {
+      rows.push(
+        createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore())
+      )
+    }
+
+    // Create lines for files
+    for (let i = 0; i < props.files.length; i++) {
+      rows.push(
+        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', props.files[i].updated_at, getDownloadLink(props.files[i].download_url), getMore())
+      )
+    }
+
+    console.log(rows)
+
     return (
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">

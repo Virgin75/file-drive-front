@@ -4,7 +4,7 @@ import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import LeftBar from '../components/LeftBar';
-import File from '../components/File';
+import FilesAndFoldersList from '../components/FilesAndFoldersList';
 import Button from '@mui/material/Button';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
 
@@ -57,21 +57,6 @@ export default function MyDrive() {
    
   }, []);
 
-  const DisplayFolders = () => {
-    return folders.map((item, index) => (
-      <span className="indent" key={index}>
-          <li><b>Dossier : </b>{item.folder_name}</li>
-      </span>
-  ));
-  }
-
-  const DisplayFiles = () => {
-    return files.map((item, index) => (
-      <span className="indent" key={index}>
-          <li>{item.file_name}</li>
-      </span>
-  ));
-  }
 
   const DisplayContent = () => {
     return <>
@@ -87,9 +72,7 @@ export default function MyDrive() {
           </Button>  
         </div>
         
-        <File />
-        <DisplayFolders />
-        <DisplayFiles />
+        <FilesAndFoldersList files={files} folders={folders} />
        
         <div>
             {isLoading ? (
