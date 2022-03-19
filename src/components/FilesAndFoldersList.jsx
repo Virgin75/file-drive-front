@@ -14,13 +14,16 @@ import IconButton from '@mui/material/IconButton';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import { Navigate, useNavigate } from 'react-router-dom';
 
   
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
+    const navigate = useNavigate();
 
-    function createData(isFolder, name, type, size, edit_date, dl_link, more) {
-      return { isFolder, name, type, size, edit_date, dl_link, more };
+
+    function createData(isFolder, name, type, size, edit_date, dl_link, more, id) {
+      return { isFolder, name, type, size, edit_date, dl_link, more, id };
     }
     
     function getDownloadLink(param) {
@@ -42,13 +45,17 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
           return <img src={APIHost + thumbnail} width="50" height="50"/>
       }
     }
+
+    const handleRowClick = (id) => {
+      navigate("/folders/" + id + '/', { replace: true });
+    }
   
     const rows = [];
 
     // Create lines for folders
     for (let i = 0; i < props.folders.length; i++) {
       rows.push(
-        createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore())
+        createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore(), props.folders[i].id)
       )
     }
 
@@ -68,7 +75,7 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
       console.log(ndate)
 
       rows.push(
-        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore())
+        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore(),  props.files[i].id)
       )
     }
 
@@ -76,7 +83,7 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 
     return (
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead sx={{ backgroundColor: '#fafafa'}}>
             <TableRow>
               <TableCell></TableCell>
@@ -90,17 +97,19 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
           </TableHead>
           <TableBody>
             {rows.map((row) => (
+              
               <TableRow
-                key={row.name}
+                hover={true}
+                key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell sx={{ width: '25px'}} align="center">{row.isFolder}</TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell onClick={() => handleRowClick(row.id)} sx={{ width: '25px'}} align="center">{row.isFolder}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} component="th" scope="row">
                   <b>{row.name}</b>
                 </TableCell>
-                <TableCell align="right">{row.type}</TableCell>
-                <TableCell align="right">{row.size}</TableCell>
-                <TableCell align="right">{row.edit_date}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} align="right">{row.type}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} align="right">{row.size}</TableCell>
+                <TableCell onClick={() => handleRowClick(row.id)} align="right">{row.edit_date}</TableCell>
                 <TableCell sx={{ width: '90px', backgroundColor: '#e3edf7'}} align="center">{row.dl_link}</TableCell>
                 <TableCell sx={{ width: '90px'}} align="center">{row.more}</TableCell>
               </TableRow>

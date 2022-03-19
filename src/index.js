@@ -7,6 +7,7 @@ import {
 import Login from "./routes/Login";
 import SignUp from "./routes/SignUp";
 import MyDrive from "./routes/MyDrive";
+import FolderView from './routes/FolderView'
 import { APIHostContext, host } from "./APIHostContext";
 
 const rootElement = document.getElementById("root");
@@ -19,6 +20,7 @@ render(
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="my-drive" element={<MyDrive />} />
+        <Route path="folders/:id" element={<FolderView />} />
       </Routes>
     </BrowserRouter>
   </APIHostContext.Provider>,
