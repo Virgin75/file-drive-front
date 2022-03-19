@@ -54,8 +54,21 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 
     // Create lines for files
     for (let i = 0; i < props.files.length; i++) {
+      //reformat date
+      let date = new Date(props.files[i].updated_at);
+      let ndate = date.toLocaleString('en-US', {
+        weekday: 'short', // long, short, narrow
+        day: 'numeric', // numeric, 2-digit
+        year: 'numeric', // numeric, 2-digit
+        month: 'long', // numeric, 2-digit, long, short, narrow
+        hour: 'numeric', // numeric, 2-digit
+        minute: 'numeric', // numeric, 2-digit
+        second: 'numeric', // numeric, 2-digit
+    })
+      console.log(ndate)
+
       rows.push(
-        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', props.files[i].updated_at, getDownloadLink(props.files[i].download_url), getMore())
+        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore())
       )
     }
 

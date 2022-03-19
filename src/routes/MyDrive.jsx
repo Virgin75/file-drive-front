@@ -7,6 +7,7 @@ import LeftBar from '../components/LeftBar';
 import FilesAndFoldersList from '../components/FilesAndFoldersList';
 import Button from '@mui/material/Button';
 import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
+import CreateFolderModal from '../components/CreateFolderModal'
 
 
 export default function MyDrive() {
@@ -14,9 +15,18 @@ export default function MyDrive() {
   const [isLoading, setIsLoading] = React.useState(false)
   const [folders, setFolders] = React.useState([])
   const [files, setFiles] = React.useState([])
+  const [rootFolder, setRootFolder] = React.useState('')
+  const [open, setOpen] = React.useState(false);
 
   const navigate = useNavigate();
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
   React.useEffect(() => {
@@ -51,11 +61,12 @@ export default function MyDrive() {
               setIsLoading(false)
               setFolders(data.subfolders)
               setFiles(data.files)
+              setRootFolder(result[0].id)
             });
         });
     }
    
-  }, []);
+  }, [open]);
 
 
   const DisplayContent = () => {
@@ -67,9 +78,13 @@ export default function MyDrive() {
       <div className="right">
         <div className='topSection'>
           <h1>My Drive</h1>
-          <Button sx={{justifySelf: 'flex-end', marginLeft: 'auto', maxHeight: '48px', minWidth: '212px'}} variant="contained" startIcon={<CreateNewFolderOutlinedIcon />}>
+          <Button onClick={handleClickOpen} sx={{justifySelf: 'flex-end', marginLeft: 'auto', maxHeight: '48px', minWidth: '212px'}} variant="contained" startIcon={<CreateNewFolderOutlinedIcon />}>
             Create new folder
-          </Button>  
+          </Button>
+          <CreateFolderModal 
+            open={open} 
+            handleClose={handleClose} 
+            currentFolder={rootFolder}/>
         </div>
         
         <FilesAndFoldersList files={files} folders={folders} />
