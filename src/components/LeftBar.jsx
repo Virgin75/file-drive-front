@@ -24,7 +24,6 @@ export default function LeftBar() {
     return (
       <>
       
-      <div className='leftBar'>
       <MenuList>
         <MenuItem>
         <Button  className='btnHeader' startIcon={<FileUploadOutlinedIcon />}>
@@ -53,7 +52,6 @@ export default function LeftBar() {
           <ListItemText>Help</ListItemText>
         </MenuItem>
       </MenuList>
-      </div>
       </>
       
     );

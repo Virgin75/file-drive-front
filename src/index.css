@@ -29,13 +29,11 @@ body {
 
 .left {
   flex: 2;
+  border-right: 1px solid rgba(128, 128, 128, 0.281);
+  margin-right: 2em;
+  background-color: #e3edf738;
 }
 
-.leftBar {
-  border-right: 1px solid rgba(128, 128, 128, 0.281);
-  height: 100vh;
-  margin-right: 2em;
-}
 
 .right {
   flex: 7;

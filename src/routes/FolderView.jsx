@@ -70,6 +70,26 @@ export default function FolderView(props) {
    
   }, [open, params]);
 
+  const renderTitle = () => {
+    
+      if(folderName == 'root') {
+        return <h1>My Drive</h1>
+      } 
+      else {
+        return <h1>{folderName}</h1>
+      }
+    
+  }
+
+  const renderBackButton = () => {
+    if(folderName == 'root') {
+      return <></>
+    } 
+    else {
+      return <Button sx={{marginBottom: '23px'}} onClick={handleBackClick} startIcon={<ArrowBackIcon />} variant="outlined">Go back to parent folder</Button>
+
+    }
+  }
 
   const DisplayContent = () => {
     return <>
@@ -79,7 +99,8 @@ export default function FolderView(props) {
       </div>
       <div className="right">
         <div className='topSection'>
-          <h1>{folderName}</h1>
+        
+        {renderTitle()}
           <Button onClick={handleClickOpen} sx={{justifySelf: 'flex-end', marginLeft: 'auto', maxHeight: '48px', minWidth: '212px'}} variant="contained" startIcon={<CreateNewFolderOutlinedIcon />}>
             Create new folder
           </Button>
@@ -88,7 +109,7 @@ export default function FolderView(props) {
             handleClose={handleClose} 
             currentFolder={rootFolder}/>
         </div>
-        <Button onClick={handleBackClick} startIcon={<ArrowBackIcon />} variant="outlined">Go back to parent folder</Button>
+        {renderBackButton()}
         <FilesAndFoldersList files={files} folders={folders} />
        
         <div>
