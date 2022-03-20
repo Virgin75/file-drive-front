@@ -13,13 +13,19 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Button from '@mui/material/Button';
 
 import "../index.css"
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function LeftBar() {
 
   const APIHost = React.useContext(APIHostContext)
+  const navigate = useNavigate();
 
   React.useEffect(() => {
   }, []);
+
+    const goToMyDrive = () => {
+      navigate("/my-drive", { replace: true });
+    }
 
     return (
       <>
@@ -32,7 +38,7 @@ export default function LeftBar() {
         </MenuItem>
             
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={goToMyDrive}>
           <ListItemIcon>
             <CloudOutlinedIcon fontSize="medium" />
           </ListItemIcon>

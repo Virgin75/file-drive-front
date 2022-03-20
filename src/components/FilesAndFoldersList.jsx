@@ -26,21 +26,13 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
+import FolderActionsMenu from '../components/FolderActionsMenu'
   
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const openMore = Boolean(anchorEl);
-    const handleClickMore = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleCloseMore = () => {
-      setAnchorEl(null);
-    };
-
+    
+   
 
     function createData(isFolder, name, type, size, edit_date, dl_link, more, id) {
       return { isFolder, name, type, size, edit_date, dl_link, more, id };
@@ -51,75 +43,14 @@ import Logout from '@mui/icons-material/Logout';
                   <FileDownloadOutlinedIcon fontSize="medium"/>
               </IconButton>
     }
-    function getMore(param) {
-      // Splitter tout ça dans un new component
-      return <>
-      <IconButton  onClick={handleClickMore} className="btnHeader" color="secondary" aria-label="ffd">
-                  <MoreVertOutlinedIcon fontSize="medium"/>
-              </IconButton>
-              <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={openMore}
-        onClose={handleCloseMore}
-        onClick={handleCloseMore}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 3px rgba(0,0,0,0.03))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
-            </>
-
+    function getMore(contentType, id) {
+      if (contentType == 'folder') {
+        return <FolderActionsMenu id={id}/>
+      }
+      else if (contentType == 'file') {
+        return <></>
+      }
+      
     }
   
     function isFolder(bool, thumbnail) {
@@ -141,7 +72,7 @@ import Logout from '@mui/icons-material/Logout';
     // Create lines for folders
     for (let i = 0; i < props.folders.length; i++) {
       folder_rows.push(
-        createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore(), props.folders[i].id)
+        createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
       )
     }
 
@@ -161,7 +92,7 @@ import Logout from '@mui/icons-material/Logout';
       console.log(ndate)
 
       file_rows.push(
-        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore(),  props.files[i].id)
+        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
       )
     }
 
