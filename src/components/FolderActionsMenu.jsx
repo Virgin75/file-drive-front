@@ -12,14 +12,19 @@ import BackspaceOutlinedIcon from '@mui/icons-material/BackspaceOutlined';import
 import DriveFileMoveOutlinedIcon from '@mui/icons-material/DriveFileMoveOutlined';import Settings from '@mui/icons-material/Settings';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import DeleteFolderModal from './DeleteFolderModal';
+import RenameFolderModal from './RenameFolderModal';
+import ShareFolderWithModal from './ShareFolderWithModal';
 
   export default function FolderActionsMenu(props) {
     const APIHost = React.useContext(APIHostContext)
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [openModalDeleteFolder, setOpenModalDeleteFolder] = React.useState(false);
+    const [openModalRenameFolder, setOpenModalRenameFolder] = React.useState(false);
+    const [openModalShareFolder, setOpenModalShareFolder] = React.useState(false);
 
     const openMore = Boolean(anchorEl);
+    
     const handleClickMore = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -30,12 +35,24 @@ import DeleteFolderModal from './DeleteFolderModal';
 
     const handleClickOpenDeleteFolder = () => {
       setOpenModalDeleteFolder(true);
-    };
-    
+    };    
     const handleCloseDeleteFolder = () => {
       setOpenModalDeleteFolder(false);
     };
 
+    const handleClickOpenRenameFolder = () => {
+        setOpenModalRenameFolder(true);
+      };    
+    const handleCloseRenameFolder = () => {
+        setOpenModalRenameFolder(false);
+      };
+
+    const handleClickOpenShareFolder = () => {
+        setOpenModalShareFolder(true);
+      };    
+    const handleCloseShareFolder = () => {
+        setOpenModalShareFolder(false);
+      };
     
     return (
         <>
@@ -77,7 +94,7 @@ import DeleteFolderModal from './DeleteFolderModal';
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
-          <MenuItem>
+          <MenuItem onClick={handleClickOpenRenameFolder}>
             <ListItemIcon>
               <DriveFileRenameOutlineOutlinedIcon fontSize="medium" />
             </ListItemIcon>
@@ -89,7 +106,7 @@ import DeleteFolderModal from './DeleteFolderModal';
             </ListItemIcon>
             Move this folder to...
           </MenuItem>
-          <MenuItem>
+          <MenuItem  onClick={handleClickOpenShareFolder}>
             <ListItemIcon>
               <ShareOutlinedIcon fontSize="medium" />
             </ListItemIcon>
@@ -105,6 +122,14 @@ import DeleteFolderModal from './DeleteFolderModal';
         <DeleteFolderModal 
             open={openModalDeleteFolder} 
             handleClose={handleCloseDeleteFolder} 
+            id={props.id}/>
+        <RenameFolderModal 
+            open={openModalRenameFolder} 
+            handleClose={handleCloseRenameFolder} 
+            id={props.id}/>
+        <ShareFolderWithModal 
+            open={openModalShareFolder} 
+            handleClose={handleCloseShareFolder} 
             id={props.id}/>
         </>
     );
