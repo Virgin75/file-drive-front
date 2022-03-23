@@ -75,7 +75,7 @@ export default function MyDrive() {
     return <>
     <div className='twoSections'>
       <div className="left">
-        <LeftBar />
+        <LeftBar currentFolder={rootFolder}/>
       </div>
       <div className="right">
         <div className='topSection'>

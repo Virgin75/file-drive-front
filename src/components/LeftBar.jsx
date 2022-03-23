@@ -15,20 +15,21 @@ import Button from '@mui/material/Button';
 import "../index.css"
 import { Navigate, useNavigate } from 'react-router-dom';
 import HelpModal from '../components/HelpModal'
+import UploadFileModal from '../components/UploadFileModal'
 
-export default function LeftBar() {
+export default function LeftBar(props) {
 
   const APIHost = React.useContext(APIHostContext)
   const navigate = useNavigate();
   const [openHelpModal, setOpenHelpModal] = React.useState(false);
+  const [openFileUploadModal, setOpenFileUploadModal] = React.useState(false);
 
 
-  React.useEffect(() => {
-  }, []);
 
     const goToMyDrive = () => {
       navigate("/my-drive", { replace: true });
     }
+
     const handleClickOpenHelpModal = () => {
       setOpenHelpModal(true);
     };    
@@ -36,11 +37,18 @@ export default function LeftBar() {
       setOpenHelpModal(false);
     };
 
+    const handleClickOpenFileUploadModal = () => {
+      setOpenFileUploadModal(true);
+    };    
+    const handleCloseFileUploadModal = () => {
+      setOpenFileUploadModal(false);
+    };
+
     return (
       <>
       
       <MenuList>
-        <MenuItem>
+        <MenuItem onClick={handleClickOpenFileUploadModal}>
         <Button  className='btnHeader' startIcon={<FileUploadOutlinedIcon />}>
           Upload a new file
         </Button>  
@@ -70,6 +78,10 @@ export default function LeftBar() {
       <HelpModal 
             open={openHelpModal} 
             handleClose={handleCloseHelpModal}/>
+      <UploadFileModal 
+            open={openFileUploadModal} 
+            handleClose={handleCloseFileUploadModal}
+            currentFolder={props.currentFolder}/>
       </>
       
     );

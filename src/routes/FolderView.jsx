@@ -107,7 +107,7 @@ export default function FolderView(props) {
     return <>
     <div className='twoSections'>
       <div className="left">
-        <LeftBar />
+        <LeftBar currentFolder={params.id}/>
       </div>
       <div className="right">
         <div className='topSection'>
