@@ -14,6 +14,7 @@ import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRen
 import DeleteFolderModal from './DeleteFolderModal';
 import RenameFolderModal from './RenameFolderModal';
 import ShareFolderWithModal from './ShareFolderWithModal';
+import MoveFolderModal from './MoveFolderModal';
 
   export default function FolderActionsMenu(props) {
     const APIHost = React.useContext(APIHostContext)
@@ -22,6 +23,7 @@ import ShareFolderWithModal from './ShareFolderWithModal';
     const [openModalDeleteFolder, setOpenModalDeleteFolder] = React.useState(false);
     const [openModalRenameFolder, setOpenModalRenameFolder] = React.useState(false);
     const [openModalShareFolder, setOpenModalShareFolder] = React.useState(false);
+    const [openModalMoveFolder, setOpenModalMoveFolder] = React.useState(false);
 
     const openMore = Boolean(anchorEl);
     
@@ -52,6 +54,13 @@ import ShareFolderWithModal from './ShareFolderWithModal';
       };    
     const handleCloseShareFolder = () => {
         setOpenModalShareFolder(false);
+      };
+
+      const handleClickOpenMoveFolder = () => {
+        setOpenModalMoveFolder(true);
+      };    
+      const handleCloseMoveFolder = () => {
+        setOpenModalMoveFolder(false);
       };
     
     return (
@@ -100,7 +109,7 @@ import ShareFolderWithModal from './ShareFolderWithModal';
             </ListItemIcon>
             Rename folder
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleClickOpenMoveFolder}>
             <ListItemIcon>
               <DriveFileMoveOutlinedIcon fontSize="medium" />
             </ListItemIcon>
@@ -131,6 +140,10 @@ import ShareFolderWithModal from './ShareFolderWithModal';
             open={openModalShareFolder} 
             handleClose={handleCloseShareFolder} 
             id={props.id}/>
-        </>
+        <MoveFolderModal 
+            open={openModalMoveFolder} 
+            handleClose={handleCloseMoveFolder} 
+            id={props.id}/>
+    </>
     );
   }

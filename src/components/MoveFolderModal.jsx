@@ -11,17 +11,48 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import AlertTitle from '@mui/material/AlertTitle';
-import Alert from '@mui/material/Alert';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-
-export default function DeleteFolderModal(props) {
+export default function MoveFolderModal(props) {
   const APIHost = React.useContext(APIHostContext)
   const [isLoading, setIsLoading] = React.useState(false)
+  const [choice, setChoice] = React.useState('');
+  const [folders, setFolders] = React.useState([])
 
-  const deleteFolder = () => {
+  const handleChange = (event) => {
+    setChoice(event.target.value);
+  };
+
+  const moveFolder = () => {
+    setIsLoading(true)
+    const user = localStorage.getItem("user");
+
+      const headers = {
+        "content-Type":'application/json',
+        "Authorization": 'Bearer ' + user,
+      }
+      const body = {
+        parent_folder: choice,
+      }
+      const params = {
+        method: 'PATCH',
+        headers: headers,
+        body: JSON.stringify(body)
+      }
+      
+      fetch(APIHost + '/api/folders/' + props.id, params)
+        .then(() => {
+          setIsLoading(false)
+          props.handleClose()
+          window.location.reload();
+        });
+  };
+
+  React.useEffect(() => {
     setIsLoading(true)
     const user = localStorage.getItem("user");
 
@@ -30,31 +61,35 @@ export default function DeleteFolderModal(props) {
         "Authorization": 'Bearer ' + user,
       }
       const params = {
-        method: 'DELETE',
+        method: 'GET',
         headers: headers,
       }
       
-      fetch(APIHost + '/api/folders/' + props.id, params)
-        .then(() => {
-          setIsLoading(false)
-          props.handleClose()
-          //TODO: avant de rediriger, afficher un message de validation de succès.
-          window.location.reload();
-        });
-  };
-
-  React.useEffect(() => {
+      fetch(APIHost + '/api/folders/', params)
+      .then(results => results.json())
+      .then(data => {
+        setIsLoading(false)
+        setFolders(data)
+      });
   }, []);
 
     return (
       <>
        <Dialog open={props.open} onClose={props.handleClose}>
-        <DialogTitle>Are you sure to delete this folder?</DialogTitle>
+        <DialogTitle>Move this folder into the folder of your choice:</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            You will not be able to retrieve this folder after this action.
-          </DialogContentText>
-          
+          <FormControl sx={{marginTop: '17px'}} fullWidth>
+          <InputLabel>Folder</InputLabel>
+          <Select
+            value={choice}
+            label="Folder"
+            onChange={handleChange}
+          >
+            {folders.map((record) => 
+              <MenuItem value={record.id}>{record.folder_name}</MenuItem>
+            )}
+          </Select>
+        </FormControl>
            <div>
             {isLoading ? (
               <Rings color="#00BFFF" height={150} width={150} />
@@ -65,7 +100,7 @@ export default function DeleteFolderModal(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleClose}>Cancel</Button>
-          <Button onClick={deleteFolder}>Yes, delete this folder</Button>
+          <Button onClick={moveFolder}>Move the folder</Button>
         </DialogActions>
       </Dialog>
       </>
