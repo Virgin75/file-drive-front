@@ -53,25 +53,28 @@ export default function MoveFolderModal(props) {
   };
 
   React.useEffect(() => {
-    setIsLoading(true)
-    const user = localStorage.getItem("user");
-
-      const headers = {
-        "content-Type":'application/json',
-        "Authorization": 'Bearer ' + user,
-      }
-      const params = {
-        method: 'GET',
-        headers: headers,
-      }
-      
-      fetch(APIHost + '/api/folders/', params)
-      .then(results => results.json())
-      .then(data => {
-        setIsLoading(false)
-        setFolders(data)
-      });
-  }, []);
+    if (props.open == true) {
+      setIsLoading(true)
+      const user = localStorage.getItem("user");
+  
+        const headers = {
+          "content-Type":'application/json',
+          "Authorization": 'Bearer ' + user,
+        }
+        const params = {
+          method: 'GET',
+          headers: headers,
+        }
+        
+        fetch(APIHost + '/api/folders/', params)
+        .then(results => results.json())
+        .then(data => {
+          setIsLoading(false)
+          setFolders(data)
+        });
+    }
+    
+  }, [props.open]);
 
     return (
       <>
