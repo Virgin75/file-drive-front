@@ -14,11 +14,14 @@ import Button from '@mui/material/Button';
 
 import "../index.css"
 import { Navigate, useNavigate } from 'react-router-dom';
+import HelpModal from '../components/HelpModal'
 
 export default function LeftBar() {
 
   const APIHost = React.useContext(APIHostContext)
   const navigate = useNavigate();
+  const [openHelpModal, setOpenHelpModal] = React.useState(false);
+
 
   React.useEffect(() => {
   }, []);
@@ -26,6 +29,12 @@ export default function LeftBar() {
     const goToMyDrive = () => {
       navigate("/my-drive", { replace: true });
     }
+    const handleClickOpenHelpModal = () => {
+      setOpenHelpModal(true);
+    };    
+    const handleCloseHelpModal = () => {
+      setOpenHelpModal(false);
+    };
 
     return (
       <>
@@ -51,13 +60,16 @@ export default function LeftBar() {
           <ListItemText>Shared with me</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleClickOpenHelpModal}>
           <ListItemIcon>
             <InfoOutlinedIcon fontSize="medium" />
           </ListItemIcon>
           <ListItemText>Help</ListItemText>
         </MenuItem>
       </MenuList>
+      <HelpModal 
+            open={openHelpModal} 
+            handleClose={handleCloseHelpModal}/>
       </>
       
     );
