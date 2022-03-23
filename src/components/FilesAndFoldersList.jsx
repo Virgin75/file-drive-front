@@ -27,6 +27,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import FolderActionsMenu from '../components/FolderActionsMenu'
+import FileActionsMenu from './FileActionsMenu';
   
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
@@ -48,7 +49,7 @@ import FolderActionsMenu from '../components/FolderActionsMenu'
         return <FolderActionsMenu id={id}/>
       }
       else if (contentType == 'file') {
-        return <></>
+        return <FileActionsMenu id={id}/>
       }
       
     }
