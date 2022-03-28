@@ -30,6 +30,10 @@ export default function LeftBar(props) {
       navigate("/my-drive", { replace: true });
     }
 
+    const goToSharedFiles = () => {
+      navigate("/shared-with-me", { replace: true });
+    }
+
     const handleClickOpenHelpModal = () => {
       setOpenHelpModal(true);
     };    
@@ -61,7 +65,7 @@ export default function LeftBar(props) {
           </ListItemIcon>
           <ListItemText>My Drive</ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={goToSharedFiles}>
           <ListItemIcon>
             <FolderSharedOutlinedIcon fontSize="medium" />
           </ListItemIcon>

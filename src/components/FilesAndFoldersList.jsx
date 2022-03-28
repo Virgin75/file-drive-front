@@ -71,14 +71,14 @@ import FileActionsMenu from './FileActionsMenu';
     const folder_rows = [];
 
     // Create lines for folders
-    for (let i = 0; i < props.folders.length; i++) {
+    for (let i = 0; i < props.folders?.length; i++) {
       folder_rows.push(
         createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
       )
     }
 
     // Create lines for files
-    for (let i = 0; i < props.files.length; i++) {
+    for (let i = 0; i < props.files?.length; i++) {
       //reformat date
       let date = new Date(props.files[i].updated_at);
       let ndate = date.toLocaleString('en-US', {
