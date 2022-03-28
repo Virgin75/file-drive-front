@@ -19,10 +19,13 @@ body {
   margin-right: 10px;;
 }
 
-.mainTitle {
+.search {
   margin-right: auto;
 }
 
+.MuiFilledInput-underline {
+  height: 66px;
+}
 .twoSections {
   display: flex;
 }
