@@ -11,32 +11,24 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import { Navigate, useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
 import FolderActionsMenu from '../components/FolderActionsMenu'
 import FileActionsMenu from './FileActionsMenu';
-  
+import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
+import PeopleIcon from '@mui/icons-material/People';
+import Tooltip from '@mui/material/Tooltip';
+
+
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
     const navigate = useNavigate();
     
    
 
-    function createData(isFolder, name, type, size, edit_date, dl_link, more, id) {
-      return { isFolder, name, type, size, edit_date, dl_link, more, id };
+    function createData(isFolder, name, shared_with, type, size, edit_date, dl_link, more, id) {
+      return { isFolder, name, shared_with, type, size, edit_date, dl_link, more, id };
     }
     
     function getDownloadLink(param) {
@@ -52,6 +44,22 @@ import FileActionsMenu from './FileActionsMenu';
         return <FileActionsMenu id={id}/>
       }
       
+    }
+
+    function getSharedWith(param) {
+      if (param?.length == 0) {
+        return <Tooltip title="Share it with another user">
+          <IconButton className="btnHeader" color="primary">
+           <GroupAddOutlinedIcon />
+        </IconButton>
+        </Tooltip>
+      }
+      else {
+        return <Tooltip title={'Currently shared with ' + param?.length + ' user(s)'}><IconButton className="btnHeader" color="secondary">
+           <PeopleIcon />
+        </IconButton>
+        </Tooltip>
+      }
     }
   
     function isFolder(bool, thumbnail) {
@@ -73,7 +81,7 @@ import FileActionsMenu from './FileActionsMenu';
     // Create lines for folders
     for (let i = 0; i < props.folders?.length; i++) {
       folder_rows.push(
-        createData(isFolder(true, ''), props.folders[i].folder_name, '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
+        createData(isFolder(true, ''), props.folders[i].folder_name, getSharedWith(props.folders[i]?.shared_with_users), '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
       )
     }
 
@@ -93,7 +101,7 @@ import FileActionsMenu from './FileActionsMenu';
       console.log(ndate)
 
       file_rows.push(
-        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
+        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, getSharedWith(props.folders[i]?.shared_with_users), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
       )
     }
 
@@ -115,6 +123,7 @@ import FileActionsMenu from './FileActionsMenu';
             <TableRow>
               <TableCell></TableCell>
               <TableCell>Name</TableCell>
+              {props.showShareColumn && <TableCell align="right">Share</TableCell>}
               <TableCell align="right">File type</TableCell>
               <TableCell align="right">Disk size (mb)</TableCell>
               <TableCell align="right">Last edited on:</TableCell>
@@ -134,6 +143,7 @@ import FileActionsMenu from './FileActionsMenu';
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} component="th" scope="row">
                   <b>{row.name}</b>
                 </TableCell>
+                {props.showShareColumn && <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.shared_with}</TableCell>}
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.type}</TableCell>
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.size}</TableCell>
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.edit_date}</TableCell>
@@ -151,6 +161,7 @@ import FileActionsMenu from './FileActionsMenu';
                 <TableCell component="th" scope="row">
                   <b>{row.name}</b>
                 </TableCell>
+                {props.showShareColumn && <TableCell align="right">{row.shared_with}</TableCell>}
                 <TableCell align="right">{row.type}</TableCell>
                 <TableCell align="right">{row.size}</TableCell>
                 <TableCell align="right">{row.edit_date}</TableCell>

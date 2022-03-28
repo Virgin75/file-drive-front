@@ -89,7 +89,10 @@ export default function MyDrive() {
             currentFolder={rootFolder}/>
         </div>
         
-        <FilesAndFoldersList files={files} folders={folders} />
+        <FilesAndFoldersList 
+          files={files} 
+          folders={folders} 
+          showShareColumn={true}/>
        
         <div>
             {isLoading ? (

@@ -123,7 +123,10 @@ export default function FolderView(props) {
             currentFolder={rootFolder}/>
         </div>
         {renderBackButton()}
-        <FilesAndFoldersList files={files} folders={folders} />
+        <FilesAndFoldersList 
+          files={files} 
+          folders={folders} 
+          showShareColumn={true}/>
        
         <div>
             {isLoading ? (

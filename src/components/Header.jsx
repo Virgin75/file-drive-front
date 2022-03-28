@@ -6,7 +6,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import TextField from '@mui/material/TextField';
-import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 

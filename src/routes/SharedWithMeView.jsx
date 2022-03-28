@@ -72,7 +72,10 @@ export default function SharedWithMeView(props) {
         
         <h1>🔗 Folders and files shared with you</h1>
         </div>
-        <FilesAndFoldersList files={files} folders={folders} />
+        <FilesAndFoldersList 
+          files={files} 
+          folders={folders} 
+          showShareColumn={false}/>
        
         <div>
             {isLoading ? (
