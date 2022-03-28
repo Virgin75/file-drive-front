@@ -47,7 +47,7 @@ import Tooltip from '@mui/material/Tooltip';
     }
 
     function getSharedWith(param) {
-      if (param?.length == 0) {
+      if (param.length == 0) {
         return <Tooltip title="Share it with another user">
           <IconButton className="btnHeader" color="primary">
            <GroupAddOutlinedIcon />
@@ -55,7 +55,7 @@ import Tooltip from '@mui/material/Tooltip';
         </Tooltip>
       }
       else {
-        return <Tooltip title={'Currently shared with ' + param?.length + ' user(s)'}><IconButton className="btnHeader" color="secondary">
+        return <Tooltip title={'Currently shared with ' + param.length + ' user(s)'}><IconButton className="btnHeader" color="secondary">
            <PeopleIcon />
         </IconButton>
         </Tooltip>
@@ -81,7 +81,7 @@ import Tooltip from '@mui/material/Tooltip';
     // Create lines for folders
     for (let i = 0; i < props.folders?.length; i++) {
       folder_rows.push(
-        createData(isFolder(true, ''), props.folders[i].folder_name, getSharedWith(props.folders[i]?.shared_with_users), '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
+        createData(isFolder(true, ''), props.folders[i].folder_name, getSharedWith(props.folders[i].shared_with_users), '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
       )
     }
 
@@ -101,7 +101,7 @@ import Tooltip from '@mui/material/Tooltip';
       console.log(ndate)
 
       file_rows.push(
-        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, getSharedWith(props.folders[i]?.shared_with_users), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
+        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, getSharedWith(props.files[i].shared_with_users), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
       )
     }
 
