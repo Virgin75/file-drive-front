@@ -21,13 +21,13 @@ import PeopleIcon from '@mui/icons-material/People';
 import Tooltip from '@mui/material/Tooltip';
 import ShareFolderWithModal from './ShareFolderWithModal';
 import ShareFileWithModal from './ShareFileWithModal';
+import SharedWithModal from './SharedWithModal';
+import GetSharedWithIcon from './GetSharedWithIcon';
 
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
     const navigate = useNavigate();
-    const [openModalShareFolder, setOpenModalShareFolder] = React.useState(false);
-    const [openModalShareFile, setOpenModalShareFile] = React.useState(false);
-
+    
 
     function createData(isFolder, name, shared_with, type, size, edit_date, dl_link, more, id) {
       return { isFolder, name, shared_with, type, size, edit_date, dl_link, more, id };
@@ -49,40 +49,16 @@ import ShareFileWithModal from './ShareFileWithModal';
     }
 
     function getSharedWith(users, type, id) {
-      if (users.length == 0) {
-        switch (type) {
-          case 'file':
-            return <><Tooltip title="Share this file with another user">
-              <IconButton onClick={() => setOpenModalShareFile(true)} className="btnHeader" color="primary">
-              <GroupAddOutlinedIcon />
-              </IconButton>
-              </Tooltip>
-              <ShareFileWithModal 
-                  open={openModalShareFile} 
-                  handleClose={() => setOpenModalShareFile(false)} 
-                  id={id}/>
-              </>
-          case 'folder':
-              return <><Tooltip title="Share this folder with another user">
-              <IconButton onClick={() => setOpenModalShareFolder(true)} className="btnHeader" color="primary">
-              <GroupAddOutlinedIcon />
-              </IconButton>
-              </Tooltip>
-              <ShareFolderWithModal 
-                  open={openModalShareFolder} 
-                  handleClose={() => setOpenModalShareFolder(false)} 
-                  id={id}/>
-              </>
-        }
+        return <>
+        <GetSharedWithIcon
+          users={users}
+          type={type}
+          id={id}
+        />
+        </>
         
       }
-      else {
-        return <Tooltip title={'Currently shared with ' + users.length + ' user(s)'}><IconButton className="btnHeader" color="secondary">
-           <PeopleIcon />
-        </IconButton>
-        </Tooltip>
-      }
-    }
+      
   
     function isFolder(bool, thumbnail) {
       if (bool) {
