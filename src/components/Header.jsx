@@ -30,16 +30,16 @@ export default function Header() {
             <span className="mainTitle">LogoName</span>
             <div className="search">
               <TextField 
-                sx={{marginLeft: '35px'}} 
+                sx={{marginLeft: '35px', borderRadius: '5px 0px 0px 5px'}} 
                 label="Search files or folders..." 
-                variant="filled" 
+                variant="outlined" 
                 value={search}
                 onChange={handleChange}/>
               <Button 
                 variant="contained" 
                 disableElevation
                 endIcon={<SearchIcon />}
-                sx={{height: '66px', borderRadius: '0px 5px 5px 0px'}}>
+                sx={{height: '64px', borderRadius: '0px 5px 5px 0px', marginLeft: '-12px'}}>
                 Search
               </Button>
             </div>

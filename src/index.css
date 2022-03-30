@@ -16,16 +16,13 @@ body {
 
 .btnHeader {
   margin: auto;
-  margin-right: 10px;;
+  margin-right: 10px;
 }
 
 .search {
   margin-right: auto;
 }
 
-.MuiFilledInput-underline {
-  height: 66px;
-}
 .twoSections {
   display: flex;
 }
@@ -91,7 +88,7 @@ label {
 
 input[type="text"], input[type="password"] {
   padding: 18px;
-  font-size: 1.4rem;
+  font-size: 1rem;
   margin-top: 5px;
 }
 
