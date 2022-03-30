@@ -60,9 +60,9 @@ import GetSharedWithIcon from './GetSharedWithIcon';
       }
       
   
-    function isFolder(bool, thumbnail) {
+    function isFolder(bool, thumbnail, color) {
       if (bool) {
-          return <FolderOutlinedIcon color="primary" fontSize="large"/>
+          return <FolderOutlinedIcon sx={{ color: color }} fontSize="large"/>
       }
       else {
           return <img src={APIHost + thumbnail} width="50" height="50"/>
@@ -79,7 +79,7 @@ import GetSharedWithIcon from './GetSharedWithIcon';
     // Create lines for folders
     for (let i = 0; i < props.folders?.length; i++) {
       folder_rows.push(
-        createData(isFolder(true, ''), props.folders[i].folder_name, getSharedWith(props.folders[i].shared_with_users, 'folder', props.folders[i].id), '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
+        createData(isFolder(true, '', props.folders[i].color), props.folders[i].folder_name, getSharedWith(props.folders[i].shared_with_users, 'folder', props.folders[i].id), '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
       )
     }
 
@@ -99,7 +99,7 @@ import GetSharedWithIcon from './GetSharedWithIcon';
       console.log(ndate)
 
       file_rows.push(
-        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, getSharedWith(props.files[i].shared_with_users, 'file', props.files[i].id), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
+        createData(isFolder(false, props.files[i].thumbnail, ''), props.files[i].file_name, getSharedWith(props.files[i].shared_with_users, 'file', props.files[i].id), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
       )
     }
 

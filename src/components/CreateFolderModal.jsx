@@ -13,14 +13,21 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { SketchPicker } from 'react-color';
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export default function CreateFolderModal(props) {
   const APIHost = React.useContext(APIHostContext)
   const [isLoading, setIsLoading] = React.useState(false)
   const [name, setName] = React.useState('');
+  const [color, setColor] = React.useState('');
 
   const handleChange = (event) => {
     setName(event.target.value);
+  };
+  const handleChangeColor = (color, event) => {
+    setColor(color);
   };
 
   const createFolder = () => {
@@ -33,7 +40,8 @@ export default function CreateFolderModal(props) {
       }
       const body = {
         folder_name: name,
-        parent_folder: props.currentFolder  
+        parent_folder: props.currentFolder,
+        color: color.hex
       }
       const params = {
         method: 'POST',
@@ -63,6 +71,13 @@ export default function CreateFolderModal(props) {
             Choose the name of the new folder you want to create.
           </DialogContentText>
           <TextField
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <FolderOutlinedIcon sx={{ color: color.hex }} fontSize="large"/>
+                </InputAdornment>
+              ),
+            }}
             autoFocus
             required
             margin="dense"
@@ -73,6 +88,11 @@ export default function CreateFolderModal(props) {
             variant="outlined"
             value={name}
             onChange={handleChange}
+          />
+          <SketchPicker
+            color={color}
+            onChangeComplete={handleChangeColor}
+            onChange={handleChangeColor}
           />
            <div>
             {isLoading ? (
