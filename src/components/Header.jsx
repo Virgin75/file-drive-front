@@ -30,7 +30,7 @@ export default function Header() {
             <span className="mainTitle">LogoName</span>
             <div className="search">
               <TextField 
-                sx={{marginLeft: '35px', borderRadius: '5px 0px 0px 5px'}} 
+                sx={{marginLeft: '35px', width: '39vw', borderRadius: '5px 0px 0px 5px'}} 
                 label="Search files or folders..." 
                 variant="outlined" 
                 value={search}
