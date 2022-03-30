@@ -19,13 +19,15 @@ import FileActionsMenu from './FileActionsMenu';
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
 import PeopleIcon from '@mui/icons-material/People';
 import Tooltip from '@mui/material/Tooltip';
-
+import ShareFolderWithModal from './ShareFolderWithModal';
+import ShareFileWithModal from './ShareFileWithModal';
 
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
     const navigate = useNavigate();
-    
-   
+    const [openModalShareFolder, setOpenModalShareFolder] = React.useState(false);
+    const [openModalShareFile, setOpenModalShareFile] = React.useState(false);
+
 
     function createData(isFolder, name, shared_with, type, size, edit_date, dl_link, more, id) {
       return { isFolder, name, shared_with, type, size, edit_date, dl_link, more, id };
@@ -46,16 +48,36 @@ import Tooltip from '@mui/material/Tooltip';
       
     }
 
-    function getSharedWith(param) {
-      if (param.length == 0) {
-        return <Tooltip title="Share it with another user">
-          <IconButton className="btnHeader" color="primary">
-           <GroupAddOutlinedIcon />
-        </IconButton>
-        </Tooltip>
+    function getSharedWith(users, type, id) {
+      if (users.length == 0) {
+        switch (type) {
+          case 'file':
+            return <><Tooltip title="Share this file with another user">
+              <IconButton onClick={() => setOpenModalShareFile(true)} className="btnHeader" color="primary">
+              <GroupAddOutlinedIcon />
+              </IconButton>
+              </Tooltip>
+              <ShareFileWithModal 
+                  open={openModalShareFile} 
+                  handleClose={() => setOpenModalShareFile(false)} 
+                  id={id}/>
+              </>
+          case 'folder':
+              return <><Tooltip title="Share this folder with another user">
+              <IconButton onClick={() => setOpenModalShareFolder(true)} className="btnHeader" color="primary">
+              <GroupAddOutlinedIcon />
+              </IconButton>
+              </Tooltip>
+              <ShareFolderWithModal 
+                  open={openModalShareFolder} 
+                  handleClose={() => setOpenModalShareFolder(false)} 
+                  id={id}/>
+              </>
+        }
+        
       }
       else {
-        return <Tooltip title={'Currently shared with ' + param.length + ' user(s)'}><IconButton className="btnHeader" color="secondary">
+        return <Tooltip title={'Currently shared with ' + users.length + ' user(s)'}><IconButton className="btnHeader" color="secondary">
            <PeopleIcon />
         </IconButton>
         </Tooltip>
@@ -81,7 +103,7 @@ import Tooltip from '@mui/material/Tooltip';
     // Create lines for folders
     for (let i = 0; i < props.folders?.length; i++) {
       folder_rows.push(
-        createData(isFolder(true, ''), props.folders[i].folder_name, getSharedWith(props.folders[i].shared_with_users), '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
+        createData(isFolder(true, ''), props.folders[i].folder_name, getSharedWith(props.folders[i].shared_with_users, 'folder', props.folders[i].id), '', '', '', '', getMore("folder", props.folders[i].id), props.folders[i].id)
       )
     }
 
@@ -101,7 +123,7 @@ import Tooltip from '@mui/material/Tooltip';
       console.log(ndate)
 
       file_rows.push(
-        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, getSharedWith(props.files[i].shared_with_users), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
+        createData(isFolder(false, props.files[i].thumbnail), props.files[i].file_name, getSharedWith(props.files[i].shared_with_users, 'file', props.files[i].id), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
       )
     }
 
@@ -117,6 +139,7 @@ import Tooltip from '@mui/material/Tooltip';
     }
 
     return (
+      <>
       <TableContainer component={Paper}>
         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -143,7 +166,7 @@ import Tooltip from '@mui/material/Tooltip';
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} component="th" scope="row">
                   <b>{row.name}</b>
                 </TableCell>
-                {props.showShareColumn && <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.shared_with}</TableCell>}
+                {props.showShareColumn && <TableCell sx={{ cursor: 'pointer'}} align="right">{row.shared_with}</TableCell>}
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.type}</TableCell>
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.size}</TableCell>
                 <TableCell onClick={() => handleRowClick(row.id)} sx={{ cursor: 'pointer'}} align="right">{row.edit_date}</TableCell>
@@ -172,5 +195,7 @@ import Tooltip from '@mui/material/Tooltip';
           </TableBody>
         </Table>
       </TableContainer>
+      
+      </>
     );
   }

@@ -13,11 +13,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Alert from '@mui/material/Alert';
 
 export default function ShareFileWithModal(props) {
   const APIHost = React.useContext(APIHostContext)
   const [isLoading, setIsLoading] = React.useState(false)
   const [email, setEmail] = React.useState('');
+  const [showError, setShowError] = React.useState(false)
 
   const handleChange = (event) => {
     setEmail(event.target.value);
@@ -41,15 +43,25 @@ export default function ShareFileWithModal(props) {
       }
       
       fetch(APIHost + '/api/files/' + props.id + '/share', params)
-        .then(() => {
-          setIsLoading(false)
-          props.handleClose()
-          window.location.reload();
+          .then(results => results.json())
+          .then(data => {
+            setIsLoading(false)
+            if (data.error || data.email) {
+              setShowError(true)
+            }
+            else {
+              props.handleClose()
+              window.location.reload();
+            }
         });
   };
 
-  React.useEffect(() => {
-  }, []);
+  const displayErrorMessage = () => {
+    if (showError) {
+      return <Alert severity="error">This user does not exist or has an invalid email. Try again.</Alert>
+    }
+  }
+
 
     return (
       <>
@@ -83,6 +95,7 @@ export default function ShareFileWithModal(props) {
           <Button onClick={props.handleClose}>Cancel</Button>
           <Button onClick={shareFile}>Share this file</Button>
         </DialogActions>
+        {displayErrorMessage()}
       </Dialog>
       </>
       

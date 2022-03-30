@@ -13,11 +13,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Alert from '@mui/material/Alert';
 
 export default function ShareFolderWithModal(props) {
   const APIHost = React.useContext(APIHostContext)
   const [isLoading, setIsLoading] = React.useState(false)
-  const [email, setEmail] = React.useState('');
+  const [email, setEmail] = React.useState('')
+  const [showError, setShowError] = React.useState(false)
 
   const handleChange = (event) => {
     setEmail(event.target.value);
@@ -40,16 +42,25 @@ export default function ShareFolderWithModal(props) {
         body: JSON.stringify(body)
       }
       
-      fetch(APIHost + '/api/folders/' + props.id + '/share', params)
-        .then(() => {
-          setIsLoading(false)
-          props.handleClose()
-          window.location.reload();
+        fetch(APIHost + '/api/folders/' + props.id + '/share', params)
+          .then(results => results.json())
+          .then(data => {
+            setIsLoading(false)
+            if (data.error || data.email) {
+              setShowError(true)
+            }
+            else {
+              props.handleClose()
+              window.location.reload();
+            }
         });
   };
 
-  React.useEffect(() => {
-  }, []);
+  const displayErrorMessage = () => {
+    if (showError) {
+      return <Alert severity="error">This user does not exist or has an invalid email. Try again.</Alert>
+    }
+  }
 
     return (
       <>
@@ -83,6 +94,7 @@ export default function ShareFolderWithModal(props) {
           <Button onClick={props.handleClose}>Cancel</Button>
           <Button onClick={shareFolder}>Share this folder</Button>
         </DialogActions>
+        {displayErrorMessage()}
       </Dialog>
       </>
       
