@@ -53,9 +53,16 @@ export default function LeftBar(props) {
       
       <MenuList>
         <MenuItem onClick={handleClickOpenFileUploadModal}>
-        <Button  className='btnHeader' startIcon={<FileUploadOutlinedIcon />}>
-          Upload a new file
-        </Button>  
+        {(() => {
+          if (props.currentFolder) {
+            return <Button  className='btnHeader' startIcon={<FileUploadOutlinedIcon />}>
+            Upload a new file
+          </Button>  
+          } else {
+            return <></>;
+          }
+        })()}
+        
         </MenuItem>
             
         <Divider />

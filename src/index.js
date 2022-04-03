@@ -11,6 +11,7 @@ import MyDrive from "./routes/MyDrive";
 import FolderView from './routes/FolderView'
 import SharedWithMeView from './routes/SharedWithMeView'
 import Search from './routes/Search'
+import MyProfile from './routes/MyProfile'
 import { APIHostContext, host } from "./APIHostContext";
 import { SearchContextProvider } from "./SearchContext";
 import { ListContextProvider } from "./UpdateListContext";
@@ -31,6 +32,7 @@ render(
         <Route path="folders/:id" element={<FolderView />} />
         <Route path="shared-with-me" element={<SharedWithMeView />} />
         <Route path="search" element={<Search />} />
+        <Route path="profile" element={<MyProfile />} />
       </Routes>
     </BrowserRouter>
     </ListContextProvider>
