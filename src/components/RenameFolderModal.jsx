@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -13,11 +13,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import UpdateListContext from '../UpdateListContext';
 
 export default function RenameFolderModal(props) {
   const APIHost = React.useContext(APIHostContext)
   const [isLoading, setIsLoading] = React.useState(false)
   const [name, setName] = React.useState('');
+  const { needsUpdate, setNeedsUpdate } = useContext(UpdateListContext);
 
   const handleChange = (event) => {
     setName(event.target.value);
@@ -44,7 +46,8 @@ export default function RenameFolderModal(props) {
         .then(() => {
           setIsLoading(false)
           props.handleClose()
-          window.location.reload();
+          //Update the files and folders list
+          setNeedsUpdate(!needsUpdate)
         });
   };
 

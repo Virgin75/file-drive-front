@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Chip from '@mui/material/Chip';
 import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
+import UpdateListContext from '../UpdateListContext';
 
 export default function FolderView(props) {
   const APIHost = React.useContext(APIHostContext)
@@ -22,6 +23,7 @@ export default function FolderView(props) {
   const [parentFolder, setParentFolder] = React.useState('')
   const [open, setOpen] = React.useState(false);
   const [folderName, setFolderName] = React.useState('');
+  const { needsUpdate } = useContext(UpdateListContext);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -70,7 +72,7 @@ export default function FolderView(props) {
       });
     }
    
-  }, [open, params]);
+  }, [open, params, needsUpdate]);
 
   const renderTitle = () => {
     

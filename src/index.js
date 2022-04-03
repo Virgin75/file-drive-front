@@ -13,12 +13,15 @@ import SharedWithMeView from './routes/SharedWithMeView'
 import Search from './routes/Search'
 import { APIHostContext, host } from "./APIHostContext";
 import { SearchContextProvider } from "./SearchContext";
+import { ListContextProvider } from "./UpdateListContext";
+
 const rootElement = document.getElementById("root");
 
 
 render(
   <APIHostContext.Provider value={host}>
     <SearchContextProvider>
+    <ListContextProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MyDrive />} />
@@ -30,6 +33,7 @@ render(
         <Route path="search" element={<Search />} />
       </Routes>
     </BrowserRouter>
+    </ListContextProvider>
     </SearchContextProvider>
   </APIHostContext.Provider>,
   rootElement

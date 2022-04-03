@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutl
 import CreateFolderModal from '../components/CreateFolderModal'
 import Chip from '@mui/material/Chip';
 import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
+import UpdateListContext from '../UpdateListContext';
 
 export default function MyDrive() {
   const APIHost = React.useContext(APIHostContext)
@@ -18,6 +19,7 @@ export default function MyDrive() {
   const [files, setFiles] = React.useState([])
   const [rootFolder, setRootFolder] = React.useState('')
   const [open, setOpen] = React.useState(false);
+  const { needsUpdate } = useContext(UpdateListContext);
 
   const navigate = useNavigate();
 
@@ -67,7 +69,7 @@ export default function MyDrive() {
         });
     }
    
-  }, [open]);
+  }, [open, needsUpdate]);
 
 
   const DisplayContent = () => {

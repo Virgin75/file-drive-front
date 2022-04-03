@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import LeftBar from '../components/LeftBar';
 import FilesAndFoldersList from '../components/FilesAndFoldersList';
+import UpdateListContext from '../UpdateListContext';
 
 
 export default function SharedWithMeView(props) {
@@ -12,6 +13,7 @@ export default function SharedWithMeView(props) {
   const [isLoading, setIsLoading] = React.useState(false)
   const [folders, setFolders] = React.useState([])
   const [files, setFiles] = React.useState([])
+  const { needsUpdate } = useContext(UpdateListContext);
 
   const navigate = useNavigate();
 
@@ -58,7 +60,7 @@ export default function SharedWithMeView(props) {
       });
     }
    
-  }, []);
+  }, [needsUpdate]);
 
 
   const DisplayContent = () => {
