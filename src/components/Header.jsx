@@ -43,7 +43,7 @@ export default function Header() {
             <div className="search">
               <TextField 
                 sx={{marginLeft: '35px', width: '39vw', borderRadius: '5px 0px 0px 5px'}} 
-                label="Search files or folders..." 
+                label="Search your files or folders..." 
                 variant="outlined" 
                 value={keyword}
                 onChange={handleChange} />
