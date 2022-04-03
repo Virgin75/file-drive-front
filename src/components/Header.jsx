@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
@@ -8,17 +8,29 @@ import Tooltip from '@mui/material/Tooltip';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
+import searchContext from '../SearchContext'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import "../index.css"
 
 export default function Header() {
 
-  const [search, setSearch] = React.useState('');
+  const { keyword, setKeyword, search, setSearch } = useContext(searchContext);
+  const navigate = useNavigate();
+
   const handleChange = (event) => {
-    setSearch(event.target.value);
+    setKeyword(event.target.value);
   };
+
+  const handleClick = (event) => {
+    setSearch(!search)
+    navigate("/search", { replace: true });
+  }
+
   React.useEffect(() => {
   }, []);
+
+
 
     return (
       <>
@@ -33,12 +45,13 @@ export default function Header() {
                 sx={{marginLeft: '35px', width: '39vw', borderRadius: '5px 0px 0px 5px'}} 
                 label="Search files or folders..." 
                 variant="outlined" 
-                value={search}
-                onChange={handleChange}/>
+                value={keyword}
+                onChange={handleChange} />
               <Button 
-                variant="contained" 
+                variant="contained"
                 disableElevation
                 endIcon={<SearchIcon />}
+                onClick={handleClick}
                 sx={{height: '64px', borderRadius: '0px 5px 5px 0px', marginLeft: '-12px'}}>
                 Search
               </Button>
