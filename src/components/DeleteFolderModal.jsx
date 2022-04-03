@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import UpdateListContext from '../UpdateListContext';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -20,6 +21,7 @@ import Alert from '@mui/material/Alert';
 export default function DeleteFolderModal(props) {
   const APIHost = React.useContext(APIHostContext)
   const [isLoading, setIsLoading] = React.useState(false)
+  const { needsUpdate, setNeedsUpdate } = useContext(UpdateListContext);
 
   const deleteFolder = () => {
     setIsLoading(true)
@@ -38,8 +40,8 @@ export default function DeleteFolderModal(props) {
         .then(() => {
           setIsLoading(false)
           props.handleClose()
-          //TODO: avant de rediriger, afficher un message de validation de succès.
-          window.location.reload();
+          //Update the files and folders list
+          setNeedsUpdate(!needsUpdate)
         });
   };
 

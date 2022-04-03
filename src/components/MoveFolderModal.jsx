@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import UpdateListContext from '../UpdateListContext';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -22,7 +23,8 @@ export default function MoveFolderModal(props) {
   const [isLoading, setIsLoading] = React.useState(false)
   const [choice, setChoice] = React.useState('');
   const [folders, setFolders] = React.useState([])
-
+  const { needsUpdate, setNeedsUpdate } = useContext(UpdateListContext);
+  
   const handleChange = (event) => {
     setChoice(event.target.value);
   };
@@ -48,7 +50,8 @@ export default function MoveFolderModal(props) {
         .then(() => {
           setIsLoading(false)
           props.handleClose()
-          window.location.reload();
+          //Update the files and folders list
+          setNeedsUpdate(!needsUpdate)
         });
   };
 

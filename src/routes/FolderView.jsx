@@ -72,7 +72,7 @@ export default function FolderView(props) {
       });
     }
    
-  }, [open, params, needsUpdate]);
+  }, [params, needsUpdate]);
 
   const renderTitle = () => {
     

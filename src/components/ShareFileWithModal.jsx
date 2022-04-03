@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import UpdateListContext from '../UpdateListContext';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -20,6 +21,7 @@ export default function ShareFileWithModal(props) {
   const [isLoading, setIsLoading] = React.useState(false)
   const [email, setEmail] = React.useState('');
   const [showError, setShowError] = React.useState(false)
+  const { needsUpdate, setNeedsUpdate } = useContext(UpdateListContext);
 
   const handleChange = (event) => {
     setEmail(event.target.value);
@@ -51,7 +53,8 @@ export default function ShareFileWithModal(props) {
             }
             else {
               props.handleClose()
-              window.location.reload();
+              //Update the files and folders list
+              setNeedsUpdate(!needsUpdate)
             }
         });
   };

@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import UpdateListContext from '../UpdateListContext'
+
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -22,7 +24,8 @@ export default function CreateFolderModal(props) {
   const [isLoading, setIsLoading] = React.useState(false)
   const [name, setName] = React.useState('');
   const [color, setColor] = React.useState('');
-
+  const { needsUpdate, setNeedsUpdate } = useContext(UpdateListContext);
+  
   const handleChange = (event) => {
     setName(event.target.value);
   };
@@ -56,6 +59,8 @@ export default function CreateFolderModal(props) {
         .then(data => {
           setIsLoading(false)
           props.handleClose()
+          //Update the files and folders list
+          setNeedsUpdate(!needsUpdate)
         });
   };
 

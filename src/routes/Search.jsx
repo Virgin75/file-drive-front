@@ -10,6 +10,7 @@ import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutl
 import Chip from '@mui/material/Chip';
 import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
 import searchContext from '../SearchContext';
+import UpdateListContext from '../UpdateListContext';
 
 export default function Search() {
   const APIHost = React.useContext(APIHostContext)
@@ -18,6 +19,7 @@ export default function Search() {
   const [files, setFiles] = React.useState([])
   const [open, setOpen] = React.useState(false);
   const { keyword, setKeyword, search, setSearch } = useContext(searchContext);
+  const { needsUpdate } = useContext(UpdateListContext);
 
 
   const navigate = useNavigate();
@@ -59,7 +61,7 @@ export default function Search() {
       });
     }
    
-  }, [open, search]);
+  }, [needsUpdate, search]);
 
 
   const DisplayContent = () => {

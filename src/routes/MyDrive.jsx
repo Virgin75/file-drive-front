@@ -69,7 +69,7 @@ export default function MyDrive() {
         });
     }
    
-  }, [open, needsUpdate]);
+  }, [needsUpdate]);
 
 
   const DisplayContent = () => {

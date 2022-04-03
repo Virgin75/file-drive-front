@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import UpdateListContext from '../UpdateListContext';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
 import { Navigate, useNavigate } from 'react-router-dom';
@@ -22,6 +23,7 @@ export default function UploadFileModal(props) {
   const [isLoading, setIsLoading] = React.useState(false)
   const [file, setFile] = React.useState();
   const [isFileSelected, setIsFileSelected] = React.useState(false);
+  const { needsUpdate, setNeedsUpdate } = useContext(UpdateListContext);
 
   React.useEffect(() => {
     setIsFileSelected(false)
@@ -59,8 +61,8 @@ export default function UploadFileModal(props) {
         .then(data => {
           setIsLoading(false)
           props.handleClose()
-          //TODO: avant de rediriger, afficher un message de validation de succès.
-          window.location.reload();
+          //Update the files and folders list
+          setNeedsUpdate(!needsUpdate)
         });
   };
 
