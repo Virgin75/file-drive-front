@@ -16,7 +16,6 @@ export default function MyProfile() {
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
 
-  const { needsUpdate } = useContext(UpdateListContext);
 
   const navigate = useNavigate();
 

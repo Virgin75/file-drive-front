@@ -13,16 +13,11 @@ import Paper from '@mui/material/Paper';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import { Navigate, useNavigate } from 'react-router-dom';
-import IconButton from '@mui/material/IconButton';
 import FolderActionsMenu from '../components/FolderActionsMenu'
 import FileActionsMenu from './FileActionsMenu';
-import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined';
-import PeopleIcon from '@mui/icons-material/People';
-import Tooltip from '@mui/material/Tooltip';
-import ShareFolderWithModal from './ShareFolderWithModal';
-import ShareFileWithModal from './ShareFileWithModal';
-import SharedWithModal from './SharedWithModal';
+
 import GetSharedWithIcon from './GetSharedWithIcon';
+import DownloadLink from './DownloadLink';
 
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
@@ -33,11 +28,13 @@ import GetSharedWithIcon from './GetSharedWithIcon';
       return { isFolder, name, shared_with, type, size, edit_date, dl_link, more, id };
     }
     
-    function getDownloadLink(param) {
-      return <IconButton className="btnHeader" href={APIHost + param} color="primary" aria-label="ffd">
-                  <FileDownloadOutlinedIcon fontSize="medium"/>
-              </IconButton>
+    function getDownloadLink(param, file_name, file_type) {
+      return <DownloadLink 
+                link={param} 
+                file_name={file_name}
+                file_type={file_type}/>
     }
+
     function getMore(contentType, id) {
       if (contentType == 'folder') {
         return <FolderActionsMenu id={id}/>
@@ -99,7 +96,7 @@ import GetSharedWithIcon from './GetSharedWithIcon';
       console.log(ndate)
 
       file_rows.push(
-        createData(isFolder(false, props.files[i].thumbnail, ''), props.files[i].file_name, getSharedWith(props.files[i].shared_with_users, 'file', props.files[i].id), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url), getMore("file", props.files[i].id),  props.files[i].id)
+        createData(isFolder(false, props.files[i].thumbnail, ''), props.files[i].file_name, getSharedWith(props.files[i].shared_with_users, 'file', props.files[i].id), props.files[i].file_type, props.files[i].file_size.toFixed(2) + ' mb', ndate, getDownloadLink(props.files[i].download_url, props.files[i].file_name, props.files[i].file_type), getMore("file", props.files[i].id),  props.files[i].id)
       )
     }
 
