@@ -15,7 +15,7 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import { Navigate, useNavigate } from 'react-router-dom';
 import FolderActionsMenu from '../components/FolderActionsMenu'
 import FileActionsMenu from './FileActionsMenu';
-
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import GetSharedWithIcon from './GetSharedWithIcon';
 import DownloadLink from './DownloadLink';
 
@@ -62,7 +62,12 @@ import DownloadLink from './DownloadLink';
           return <FolderOutlinedIcon sx={{ color: color }} fontSize="large"/>
       }
       else {
+        if (thumbnail != null) {
           return <img src={APIHost + thumbnail} width="50" height="50"/>
+        }
+        else {
+          return <InsertDriveFileOutlinedIcon fontSize="large"/>
+        }
       }
     }
 
