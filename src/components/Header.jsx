@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import searchContext from '../SearchContext'
 import { Navigate, useNavigate } from 'react-router-dom';
-
+import logo from '../images/logo.png'
 import "../index.css"
 
 export default function Header() {
@@ -27,9 +27,9 @@ export default function Header() {
     navigate("/search", { replace: true });
   }
 
-  React.useEffect(() => {
-  }, []);
-
+  const goToHome = () => {
+    navigate("/my-drive", { replace: true });
+  }
 
 
     return (
@@ -39,7 +39,7 @@ export default function Header() {
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
       />
       <div className='header'>
-            <span className="mainTitle">LogoName</span>
+            <img width="130px" height="auto" onClick={goToHome} src={logo} />
             <div className="search">
               <TextField 
                 sx={{marginLeft: '35px', width: '39vw', borderRadius: '5px 0px 0px 5px'}} 
