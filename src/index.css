@@ -121,3 +121,12 @@ button[type="submit"] {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
+.empty {
+  display: flex;
+  align-items: center;
+}
+
+.emptyword {
+  margin-left: 12px;
+}

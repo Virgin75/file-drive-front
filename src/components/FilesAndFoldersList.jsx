@@ -18,6 +18,7 @@ import FileActionsMenu from './FileActionsMenu';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import GetSharedWithIcon from './GetSharedWithIcon';
 import DownloadLink from './DownloadLink';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 
   export default function FilesAndFoldersList(props) {
     const APIHost = React.useContext(APIHostContext)
@@ -105,20 +106,17 @@ import DownloadLink from './DownloadLink';
       )
     }
 
-    const renderRows = (row) => {
-      // It's a file
-      if(row.file_name != undefined || row.file_name != '') {
-        return <></>
+    const renderTable = () => {
+      // There is nothing to display
+      if(file_rows.length == 0 && folder_rows.length == 0) {
+        return <div className="empty">
+            <Inventory2OutlinedIcon fontSize="large" />
+            <span className="emptyword">This folder is empty...</span>
+          </div>
       } 
-      // It's a folder
+      // Display the data
       else {
-        return  
-      }
-    }
-
-    return (
-      <>
-      <TableContainer component={Paper}>
+        return  <TableContainer component={Paper}>
         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -173,7 +171,12 @@ import DownloadLink from './DownloadLink';
           </TableBody>
         </Table>
       </TableContainer>
-      
+      }
+    }
+
+    return (
+      <>
+        {renderTable()}
       </>
     );
   }
