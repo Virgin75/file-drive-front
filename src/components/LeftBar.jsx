@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {APIHostContext} from '../APIHostContext';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
@@ -9,11 +9,9 @@ import FolderSharedOutlinedIcon from '@mui/icons-material/FolderSharedOutlined';
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
-
 import Button from '@mui/material/Button';
-
 import "../index.css"
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import HelpModal from '../components/HelpModal'
 import UploadFileModal from '../components/UploadFileModal'
 

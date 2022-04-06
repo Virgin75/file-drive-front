@@ -1,13 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import UpdateListContext from '../UpdateListContext';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
-import { Navigate, useNavigate } from 'react-router-dom';
-import Header from './Header';
-import LeftBar from './LeftBar';
-import FilesAndFoldersList from './FilesAndFoldersList';
 import Button from '@mui/material/Button';
-import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -21,10 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import PersonIcon from '@mui/icons-material/Person';
-import Collapse from '@mui/material/Collapse';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 

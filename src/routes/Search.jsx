@@ -1,14 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import LeftBar from '../components/LeftBar';
 import FilesAndFoldersList from '../components/FilesAndFoldersList';
-import Button from '@mui/material/Button';
-import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
-import Chip from '@mui/material/Chip';
-import RouteOutlinedIcon from '@mui/icons-material/RouteOutlined';
 import searchContext from '../SearchContext';
 import UpdateListContext from '../UpdateListContext';
 
@@ -23,14 +19,6 @@ export default function Search() {
 
 
   const navigate = useNavigate();
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  
-  const handleClose = () => {
-    setOpen(false);
-  };
 
 
   React.useEffect(() => {

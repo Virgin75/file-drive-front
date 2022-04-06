@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import logo from '../images/logo.png'
 
 export default function Login() {
   const APIHost = React.useContext(APIHostContext)
@@ -65,6 +66,7 @@ export default function Login() {
       <div className='loginContainer'>
         <h1 className="welcome">Welcome to AppName 👋</h1>
         <main className="login">
+        <img width="200px" height="auto"  src={logo} />
           <h2>Please login below or <a href="/signup">create an account.</a></h2>
           <form onSubmit={handleSubmit}>
             <label>Email : </label>

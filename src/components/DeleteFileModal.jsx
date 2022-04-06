@@ -1,21 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import UpdateListContext from '../UpdateListContext';
 import {APIHostContext} from '../APIHostContext';
 import { Rings } from 'react-loader-spinner';
-import { Navigate, useNavigate } from 'react-router-dom';
-import Header from './Header';
-import LeftBar from './LeftBar';
-import FilesAndFoldersList from './FilesAndFoldersList';
 import Button from '@mui/material/Button';
-import CreateNewFolderOutlinedIcon from '@mui/icons-material/CreateNewFolderOutlined';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import AlertTitle from '@mui/material/AlertTitle';
-import Alert from '@mui/material/Alert';
 
 
 export default function DeleteFileModal(props) {

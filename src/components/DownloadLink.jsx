@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import {APIHostContext} from '../APIHostContext';
 import IconButton from '@mui/material/IconButton';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';

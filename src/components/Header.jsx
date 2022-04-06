@@ -1,6 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
-import {APIHostContext} from '../APIHostContext';
-import { Rings } from 'react-loader-spinner';
+import React, { useContext } from 'react';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
@@ -9,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 import searchContext from '../SearchContext'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import logo from '../images/logo.png'
 import "../index.css"
 

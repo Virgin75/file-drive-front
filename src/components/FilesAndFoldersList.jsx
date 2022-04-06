@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {APIHostContext} from '../APIHostContext';
-
-
 import "../index.css";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,9 +8,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import FolderActionsMenu from '../components/FolderActionsMenu'
 import FileActionsMenu from './FileActionsMenu';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
