@@ -1,4 +1,4 @@
 import React from 'react';
 
-export const host = 'http://172.19.0.1'
+export const host = 'http://52.47.47.152'
 export const APIHostContext = React.createContext();
