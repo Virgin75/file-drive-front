@@ -1,5 +1,5 @@
 # What is File Drive Front?
-It is aJavascript/React.js web app allowing you to manage your own file drive in the cloud. You can see it as a Google Drive API clone.
+It is a Javascript/React.js web app allowing you to manage your own file drive in the cloud. You can see it as a Google Drive clone.
 
 This front-end app is using the django-file-drive-api. You can check the Python back-end code [on this repo](https://github.com/Virgin75/django-file-drive).
 
@@ -9,9 +9,9 @@ Here is a list of the main features of web app:
 - Manage who you share your file and folders with
 - Search among your files and folders
 
-![App Screenshot](https://www.zupimages.net/up/22/16/zxq7.png)  
-
 🚀 Try a [live demo](#) of the React web app user interface.
+
+![App Screenshot](https://www.zupimages.net/up/22/16/zxq7.png)  
 
 # How to deploy the project locally?
 The easiest way to test this React web app locally is to run it on your computer with `npm start`
